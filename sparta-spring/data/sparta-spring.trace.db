@@ -1,0 +1,3 @@
+2025-09-15 04:49:12.953548+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "UERS" not found (this database is empty); SQL statement:
+select * from uers [42104-232]
