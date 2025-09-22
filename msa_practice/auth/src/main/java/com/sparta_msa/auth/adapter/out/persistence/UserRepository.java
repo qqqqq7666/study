@@ -1,6 +1,6 @@
-package com.sparta_msa.auth;
+package com.sparta_msa.auth.adapter.out.persistence;
 
-import com.sparta_msa.auth.domain.User;
+import com.sparta_msa.auth.core.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

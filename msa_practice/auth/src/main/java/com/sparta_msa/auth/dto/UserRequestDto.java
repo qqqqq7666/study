@@ -1,4 +1,4 @@
-package com.sparta_msa.auth.domain;
+package com.sparta_msa.auth.dto;
 
 import lombok.Builder;
 

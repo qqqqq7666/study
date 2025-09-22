@@ -1,0 +1,9 @@
+package com.sparta_msa.auth.core.port.out;
+
+import com.sparta_msa.auth.core.domain.User;
+
+import java.util.Optional;
+
+public interface LoadUserPort {
+    Optional<User> loadUserByUsername(String username);
+}

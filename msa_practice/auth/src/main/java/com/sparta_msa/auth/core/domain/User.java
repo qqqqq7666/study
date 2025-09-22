@@ -1,5 +1,6 @@
-package com.sparta_msa.auth.domain;
+package com.sparta_msa.auth.core.domain;
 
+import com.sparta_msa.auth.dto.UserResponseDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

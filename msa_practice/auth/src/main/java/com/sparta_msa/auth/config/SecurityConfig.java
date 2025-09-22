@@ -1,4 +1,4 @@
-package com.sparta_msa.auth;
+package com.sparta_msa.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

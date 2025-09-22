@@ -1,7 +1,6 @@
-package com.sparta_msa.auth.domain;
+package com.sparta_msa.auth.dto;
 
 import lombok.Builder;
-import lombok.Getter;
 
 @Builder
 public record UserSignInDto(String username, String password) { }

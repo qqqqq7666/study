@@ -1,9 +1,13 @@
-package com.sparta_msa.auth;
+package com.sparta_msa.auth.core.application;
 
-import com.sparta_msa.auth.domain.User;
-import com.sparta_msa.auth.domain.UserRequestDto;
-import com.sparta_msa.auth.domain.UserResponseDto;
-import com.sparta_msa.auth.domain.UserSignInDto;
+import com.sparta_msa.auth.core.domain.User;
+import com.sparta_msa.auth.core.port.in.SignInUseCase;
+import com.sparta_msa.auth.core.port.in.SignupUseCase;
+import com.sparta_msa.auth.core.port.out.LoadUserPort;
+import com.sparta_msa.auth.core.port.out.SaveUserPort;
+import com.sparta_msa.auth.dto.UserRequestDto;
+import com.sparta_msa.auth.dto.UserResponseDto;
+import com.sparta_msa.auth.dto.UserSignInDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,9 +17,10 @@ import java.net.URI;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
-    private final UserRepository userRepository;
+public class AuthService implements SignInUseCase, SignupUseCase {
     private final PasswordEncoder passwordEncoder;
+    private final SaveUserPort saveUserPort;
+    private final LoadUserPort loadUserPort;
 
     private User toEntity(UserRequestDto requestDto) {
         return User.builder()
@@ -25,14 +30,16 @@ public class AuthService {
                 .build();
     }
 
+    @Override
     public ResponseEntity<UserResponseDto> signUp(UserRequestDto requestDto) {
         return ResponseEntity
                 .created(URI.create("temp"))
-                .body(userRepository.save(toEntity(requestDto)).toDto());
+                .body(saveUserPort.saveUser(toEntity(requestDto)).toDto());
     }
 
+    @Override
     public ResponseEntity<String> signIn(UserSignInDto signInDto) {
-        User user = userRepository.findByUsername(signInDto.username())
+        User user = loadUserPort.loadUserByUsername(signInDto.username())
                 .orElseThrow(() -> new IllegalArgumentException("invalid username"));
 
         if (!passwordEncoder.matches(signInDto.password(), user.getPasswordToValidate())) {
