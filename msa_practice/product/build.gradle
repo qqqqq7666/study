@@ -26,6 +26,7 @@ repositories {
 
 ext {
 	set('springCloudVersion', "2025.0.0")
+	set('queryDslVersion', '5.0.0')
 }
 
 dependencies {
@@ -38,6 +39,11 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 }
 
 dependencyManagement {
@@ -48,4 +54,18 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+// 1. Q-Class를 생성할 디렉토리 경로를 설정합니다.
+def queryDslSrcDir = 'src/main/generated/querydsl/'
+// 2. JavaCompile Task를 수행하는 경우 생성될 소스코드의 출력 디렉토리를 query DslSrcDir로 설정합니다.
+tasks.withType (JavaCompile).configureEach {
+	options.getGeneratedSourceOutputDirectory().set(file(queryDslSrcDir))
+}
+// 3. 소스 코드로 인식할 디렉토리에 경로에 Q-Class 파일을 추가합니다. 이렇게 하면 Q-Class가 일반 Java 클래스처럼 취급되어 컴파일과 실행 시 클래스패스에 포함됩니다.
+sourceSets {
+	main.java.srcDirs += [queryDslSrcDir]
+}
+// 4. clean Task를 수행하는 경우 지정한 디렉토리를 삭제하도록 설정합니다. : 자동 생성된 Q-Class 제거합니다.
+clean {
+	delete file(queryDslSrcDir)
 }
