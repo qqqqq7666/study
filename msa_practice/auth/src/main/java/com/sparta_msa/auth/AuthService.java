@@ -35,7 +35,7 @@ public class AuthService {
         User user = userRepository.findByUsername(signInDto.username())
                 .orElseThrow(() -> new IllegalArgumentException("invalid username"));
 
-        if (passwordEncoder.matches(signInDto.password(), user.getPasswordToValidate())) {
+        if (!passwordEncoder.matches(signInDto.password(), user.getPasswordToValidate())) {
             throw new IllegalArgumentException("invalid password");
         }
 

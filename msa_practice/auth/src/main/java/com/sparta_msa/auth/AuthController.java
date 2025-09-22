@@ -6,6 +6,7 @@ import com.sparta_msa.auth.domain.UserSignInDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,12 +17,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signUp")
-    private ResponseEntity<UserResponseDto> signUp(UserRequestDto requestDto) {
+    private ResponseEntity<UserResponseDto> signUp(@RequestBody UserRequestDto requestDto) {
         return authService.signUp(requestDto);
     }
 
     @PostMapping("/signIn")
-    private ResponseEntity<String> signIn(UserSignInDto signInDto) {
+    private ResponseEntity<String> signIn(@RequestBody UserSignInDto signInDto) {
         return authService.signIn(signInDto);
     }
 }
