@@ -1,4 +1,7 @@
 package com.sparta_msa.product.dto;
 
-public record ProductRequestDto() {
+import lombok.Builder;
+
+@Builder
+public record ProductRequestDto(String name, Integer price, Integer quantity) {
 }

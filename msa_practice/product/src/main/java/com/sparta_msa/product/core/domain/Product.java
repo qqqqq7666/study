@@ -1,6 +1,8 @@
 package com.sparta_msa.product.core.domain;
 
 import com.sparta_msa.product.adapter.out.persistence.JpaProduct;
+import com.sparta_msa.product.dto.ProductRequestDto;
+import com.sparta_msa.product.dto.ProductResponseDto;
 import com.sparta_msa.product.dto.ProductUpdateDto;
 import lombok.Builder;
 
@@ -38,6 +40,14 @@ public class Product {
                 .createdBy(createdBy)
                 .updatedAt(updatedAt)
                 .updatedBy(updatedBy)
+                .build();
+    }
+
+    public ProductResponseDto toResponseDto() {
+        return ProductResponseDto.builder()
+                .name(name)
+                .price(price)
+                .quantity(quantity)
                 .build();
     }
 }

@@ -13,10 +13,13 @@ import com.sparta_msa.product.dto.ProductUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductService implements CreateProductUseCase, GetProductUseCase, UpdateProductUseCase {
     private final SaveProductPort savePort;
     private final LoadProductPort loadPort;
@@ -24,22 +27,28 @@ public class ProductService implements CreateProductUseCase, GetProductUseCase, 
     public Product toDomainEntity(ProductRequestDto requestDto) {
         return Product.builder()
                 .status(ProductStatus.판매_중)
-                .price()
+                .name(requestDto.name())
+                .price(requestDto.price())
+                .quantity(requestDto.quantity())
+                .build();
     }
 
     @Override
     public ProductResponseDto createProduct(ProductRequestDto requestDto) {
-        return savePort.saveProduct();
+        return savePort.saveProduct(toDomainEntity(requestDto)).toResponseDto();
     }
 
     @Override
-    public Page<ProductResponseDto> getProductList(Pageable pageable) {
-        return null;
+    public ResponseEntity<Page<ProductResponseDto>> getProductList(int page) {
+        Pageable pageable = Pageable.ofSize(10)
+                .withPage(10);
+        return ResponseEntity.ok(loadPort.getProductList(pageable)
+                .map(Product::toResponseDto));
     }
 
     @Override
-    public ProductResponseDto getProductDetail(Long productId) {
-        return null;
+    public ResponseEntity<ProductResponseDto> getProductDetail(Long productId) {
+        return ResponseEntity.ok(loadPort.getProductDetail(productId).toResponseDto());
     }
 
     @Override
