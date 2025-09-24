@@ -21,6 +21,7 @@ public class Order {
     @Enumerated(value = EnumType.STRING)
     private OrderStatus status;
     private String memo;
+    private Integer quantity;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -32,9 +33,17 @@ public class Order {
     private String updatedBy;
 
     @Builder
-    public Order(Long id, OrderStatus status, String memo, LocalDateTime createdAt, String createdBy, LocalDateTime updatedAt, String updatedBy) {
+    public Order(Long id,
+                 OrderStatus status,
+                 String memo,
+                 LocalDateTime createdAt,
+                 String createdBy,
+                 LocalDateTime updatedAt,
+                 String updatedBy,
+                 Integer quantity) {
         this.id = id;
         this.status = status;
+        this.quantity = quantity;
         this.memo = memo;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
@@ -47,6 +56,7 @@ public class Order {
                 .id(id)
                 .orderStatus(status)
                 .memo(memo)
+                .quantity(quantity)
                 .build();
     }
 

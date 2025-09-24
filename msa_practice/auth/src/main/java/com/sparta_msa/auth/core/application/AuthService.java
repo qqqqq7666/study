@@ -27,6 +27,7 @@ public class AuthService implements SignInUseCase, SignupUseCase {
                 .username(requestDto.username())
                 .password(passwordEncoder.encode(requestDto.password()))
                 .nickname(requestDto.nickname())
+                .role(requestDto.role())
                 .build();
     }
 

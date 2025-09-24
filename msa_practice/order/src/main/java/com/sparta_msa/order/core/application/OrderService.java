@@ -30,6 +30,7 @@ public class OrderService implements OrderCreateUseCase, OrderUpdateUseCase, Get
         return Order.builder()
                 .memo(requestDto.memo())
                 .status(OrderStatus.상품_준비)
+                .quantity(requestDto.quantity())
                 .build();
     }
 

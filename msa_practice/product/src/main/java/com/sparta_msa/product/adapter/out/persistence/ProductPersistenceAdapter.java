@@ -21,6 +21,7 @@ public class ProductPersistenceAdapter implements SaveProductPort, LoadProductPo
                 .name(jpaProduct.getName())
                 .price(jpaProduct.getPrice())
                 .quantity(jpaProduct.getQuantity())
+                .status(jpaProduct.getStatus())
                 .createdAt(jpaProduct.getCreatedAt())
                 .createdBy(jpaProduct.getCreatedBy())
                 .updatedAt(jpaProduct.getUpdatedAt())

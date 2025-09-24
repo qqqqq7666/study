@@ -4,5 +4,8 @@ import com.sparta_msa.order.core.domain.OrderStatus;
 import lombok.Builder;
 
 @Builder
-public record OrderResponseDto(Long id, OrderStatus orderStatus, String memo) {
+public record OrderResponseDto(Long id,
+                               OrderStatus orderStatus,
+                               String memo,
+                               Integer quantity) {
 }
