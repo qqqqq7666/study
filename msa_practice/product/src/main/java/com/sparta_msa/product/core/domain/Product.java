@@ -1,7 +1,6 @@
 package com.sparta_msa.product.core.domain;
 
 import com.sparta_msa.product.adapter.out.persistence.JpaProduct;
-import com.sparta_msa.product.dto.ProductRequestDto;
 import com.sparta_msa.product.dto.ProductResponseDto;
 import com.sparta_msa.product.dto.ProductUpdateDto;
 import lombok.Builder;
@@ -22,11 +21,18 @@ public class Product {
     private String updatedBy;
 
     public void updateProduct(ProductUpdateDto productUpdateDto) {
-
+        name = productUpdateDto.name();
+        price = productUpdateDto.price();
+        quantity = productUpdateDto.quantity();
+        status = productUpdateDto.status();
     }
 
     public void delete() {
         status = ProductStatus.삭제;
+    }
+
+    public void reduceQuantity(int quantity) {
+        this.quantity -= quantity;
     }
 
     public JpaProduct toJpaEntity() {
@@ -48,6 +54,7 @@ public class Product {
                 .name(name)
                 .price(price)
                 .quantity(quantity)
+                .status(status)
                 .build();
     }
 }

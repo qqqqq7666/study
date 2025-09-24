@@ -34,14 +34,14 @@ public class ProductService implements CreateProductUseCase, GetProductUseCase, 
     }
 
     @Override
-    public ProductResponseDto createProduct(ProductRequestDto requestDto) {
-        return savePort.saveProduct(toDomainEntity(requestDto)).toResponseDto();
+    public ResponseEntity<ProductResponseDto> createProduct(ProductRequestDto requestDto) {
+        return ResponseEntity.ok(savePort.saveProduct(toDomainEntity(requestDto)).toResponseDto());
     }
 
     @Override
     public ResponseEntity<Page<ProductResponseDto>> getProductList(int page) {
         Pageable pageable = Pageable.ofSize(10)
-                .withPage(10);
+                .withPage(page);
         return ResponseEntity.ok(loadPort.getProductList(pageable)
                 .map(Product::toResponseDto));
     }
@@ -52,12 +52,29 @@ public class ProductService implements CreateProductUseCase, GetProductUseCase, 
     }
 
     @Override
-    public ProductResponseDto updateProduct(Long productId, ProductUpdateDto updateDto) {
-        return null;
+    public ResponseEntity<ProductResponseDto> updateProduct(Long productId, ProductUpdateDto updateDto) {
+        Product product = loadPort.getProductDetail(productId);
+        product.updateProduct(updateDto);
+        savePort.saveProduct(product);
+
+        return ResponseEntity.ok(product.toResponseDto());
     }
 
     @Override
-    public ProductResponseDto deleteProduct(Long productId) {
-        return null;
+    public ResponseEntity<ProductResponseDto> deleteProduct(Long productId) {
+        Product product = loadPort.getProductDetail(productId);
+        product.delete();
+        savePort.saveProduct(product);
+
+        return ResponseEntity.ok(product.toResponseDto());
+    }
+
+    @Override
+    public ResponseEntity<ProductResponseDto> reduceQuantity(Long productId, Integer quantity) {
+        Product product = loadPort.getProductDetail(productId);
+        product.reduceQuantity(quantity);
+        savePort.saveProduct(product);
+
+        return ResponseEntity.ok(product.toResponseDto());
     }
 }

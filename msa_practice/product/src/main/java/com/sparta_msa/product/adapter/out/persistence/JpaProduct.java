@@ -26,6 +26,7 @@ public class JpaProduct {
     private String name;
     private Integer price;
     private Integer quantity;
+    @Enumerated(EnumType.STRING)
     private ProductStatus status;
 
 

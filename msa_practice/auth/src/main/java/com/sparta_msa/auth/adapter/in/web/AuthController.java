@@ -1,4 +1,4 @@
-package com.sparta_msa.auth.adapter.in.api;
+package com.sparta_msa.auth.adapter.in.web;
 
 import com.sparta_msa.auth.core.application.AuthService;
 import com.sparta_msa.auth.core.port.in.SignInUseCase;

@@ -1,6 +1,5 @@
-package com.sparta_msa.order.adapter.in.api;
+package com.sparta_msa.order.adapter.in.web;
 
-import com.sparta_msa.order.core.domain.OrderStatus;
 import com.sparta_msa.order.core.port.in.GetOrderUseCase;
 import com.sparta_msa.order.core.port.in.OrderCreateUseCase;
 import com.sparta_msa.order.core.port.in.OrderUpdateUseCase;
