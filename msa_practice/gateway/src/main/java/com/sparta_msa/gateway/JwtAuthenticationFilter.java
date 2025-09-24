@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -16,6 +17,7 @@ import reactor.core.publisher.Mono;
 
 import javax.crypto.SecretKey;
 
+@Slf4j
 @Component
 public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
@@ -31,6 +33,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
                 return chain.filter(exchange);
             else {
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+                log.error("invalid token!!!!");
                 return exchange.getResponse().setComplete();
             }
         } else
@@ -45,6 +48,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
     private String extractToken(ServerWebExchange exchange) {
         String headerVal = exchange.getRequest().getHeaders().getFirst("Authorization");
+        log.info("token: {}", headerVal);
         if (!headerVal.startsWith("Bearer") || headerVal == null)
             throw new SecurityException("invalid token");
 
@@ -63,6 +67,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
             return true;
         } catch (Exception e) {
+            log.error(e.getMessage());
             return false;
         }
 
