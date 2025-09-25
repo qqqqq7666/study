@@ -10,6 +10,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -21,7 +23,6 @@ public class Order {
     @Enumerated(value = EnumType.STRING)
     private OrderStatus status;
     private String memo;
-    private Integer quantity;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -32,19 +33,22 @@ public class Order {
     @LastModifiedBy
     private String updatedBy;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    private List<OrderItem> orderItemList = new ArrayList<>();
+
     @Builder
     public Order(Long id,
                  OrderStatus status,
                  String memo,
+                 List<OrderItem> orderItemList,
                  LocalDateTime createdAt,
                  String createdBy,
                  LocalDateTime updatedAt,
-                 String updatedBy,
-                 Integer quantity) {
+                 String updatedBy) {
         this.id = id;
         this.status = status;
-        this.quantity = quantity;
         this.memo = memo;
+        this.orderItemList = orderItemList;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
         this.updatedAt = updatedAt;
@@ -56,7 +60,6 @@ public class Order {
                 .id(id)
                 .orderStatus(status)
                 .memo(memo)
-                .quantity(quantity)
                 .build();
     }
 
@@ -66,5 +69,9 @@ public class Order {
 
     public void deleteOrder() {
         status = OrderStatus.삭제;
+    }
+
+    public void placeOrderItem(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
     }
 }

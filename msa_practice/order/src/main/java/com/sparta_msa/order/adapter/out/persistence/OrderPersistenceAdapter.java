@@ -1,6 +1,7 @@
 package com.sparta_msa.order.adapter.out.persistence;
 
 import com.sparta_msa.order.core.domain.Order;
+import com.sparta_msa.order.core.domain.OrderItem;
 import com.sparta_msa.order.core.port.out.LoadOrderPort;
 import com.sparta_msa.order.core.port.out.SaveOrderPort;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderPersistenceAdapter implements SaveOrderPort, LoadOrderPort {
     private final OrderJpaRepository repository;
+    private final OrderItemRepository orderItemRepository;
 
     @Override
     public Page<Order> loadOrderList(Pageable pageable) {
@@ -28,5 +30,10 @@ public class OrderPersistenceAdapter implements SaveOrderPort, LoadOrderPort {
     @Override
     public Order saveOrder(Order order) {
         return repository.save(order);
+    }
+
+    @Override
+    public OrderItem saveOrderItem(OrderItem orderItem) {
+        return orderItemRepository.save(orderItem);
     }
 }

@@ -32,6 +32,8 @@ public class Product {
     }
 
     public void reduceQuantity(int quantity) {
+        if(this.quantity - quantity < 0)
+            throw new IllegalArgumentException("not enough stock");
         this.quantity -= quantity;
     }
 
