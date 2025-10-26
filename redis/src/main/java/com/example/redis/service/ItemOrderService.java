@@ -1,5 +1,8 @@
-package com.example.redis;
+package com.example.redis.service;
 
+import com.example.redis.dto.ItemOrderDto;
+import com.example.redis.entity.ItemOrder;
+import com.example.redis.repository.ItemOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;

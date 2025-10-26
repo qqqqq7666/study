@@ -1,5 +1,8 @@
 package com.example.redis;
 
+import com.example.redis.controller.ItemOrderController;
+import com.example.redis.dto.ItemOrderDto;
+import com.example.redis.entity.ItemOrder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
