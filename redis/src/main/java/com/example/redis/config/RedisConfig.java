@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 @Configuration
@@ -38,6 +39,18 @@ public class RedisConfig {
         template.setValueSerializer(RedisSerializer.json());
 
         return template;
+    }
+
+    @Bean
+    public ZSetOperations<String, ItemDto> rankTemplate(
+            RedisConnectionFactory connectionFactory
+    ) {
+        RedisTemplate<String, ItemDto> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+        template.setKeySerializer(RedisSerializer.string());
+        template.setValueSerializer(RedisSerializer.json());
+
+        return template.opsForZSet();
     }
 
     @Bean

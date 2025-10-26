@@ -17,6 +17,8 @@ public class ItemOrder {
     private Integer quantity;
     private Long totalPrice;
     private String status;
+    private Item item;
+    private Integer count;
 
     public void update(ItemOrder itemOrder) {
         this.itemName = itemOrder.getItemName();
