@@ -19,4 +19,15 @@ public class ItemOrderTest {
                 .build();
         System.out.println(controller.save(itemOrder).toString());
     }
+
+    @Test
+    void saveToRedisTest() {
+        ItemOrderDto itemOrder = ItemOrderDto.builder()
+                .itemName("testName")
+                .quantity(12)
+                .totalPrice(100L)
+                .status("주문 중")
+                .build();
+        System.out.println(controller.saveToRedis(itemOrder).toString());
+    }
 }

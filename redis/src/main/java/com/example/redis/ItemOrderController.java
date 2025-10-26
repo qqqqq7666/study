@@ -33,4 +33,9 @@ public class ItemOrderController {
         itemOrderService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/dto")
+    public ResponseEntity<ItemOrderDto> saveToRedis(ItemOrderDto itemOrderDto) {
+        return ResponseEntity.ok(itemOrderService.saveToRedis(itemOrderDto));
+    }
 }

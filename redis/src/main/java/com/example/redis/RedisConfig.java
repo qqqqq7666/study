@@ -24,4 +24,17 @@ public class RedisConfig {
 
         return template;
     }
+
+    @Bean
+    public RedisTemplate<String, ItemOrderDto> itemOrderRedisTemplate(
+            RedisConnectionFactory connectionFactory
+    ) {
+        RedisTemplate<String, ItemOrderDto> template = new RedisTemplate<>();
+
+        template.setConnectionFactory(connectionFactory);
+        template.setKeySerializer(RedisSerializer.string());
+        template.setValueSerializer(RedisSerializer.json());
+
+        return template;
+    }
 }
