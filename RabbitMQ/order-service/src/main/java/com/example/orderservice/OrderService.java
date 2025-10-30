@@ -1,4 +1,4 @@
-package com.example.rabbitmq_orderservice;
+package com.example.orderservice;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

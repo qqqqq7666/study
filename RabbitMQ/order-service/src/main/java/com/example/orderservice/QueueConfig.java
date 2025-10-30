@@ -1,4 +1,4 @@
-package com.example.rabbitmq_orderservice;
+package com.example.orderservice;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
