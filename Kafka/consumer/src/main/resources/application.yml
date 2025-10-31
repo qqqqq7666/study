@@ -8,4 +8,4 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 server:
-  port: 8090
+  port: 8091
