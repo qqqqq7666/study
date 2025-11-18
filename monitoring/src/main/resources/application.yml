@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      access: unrestricted
