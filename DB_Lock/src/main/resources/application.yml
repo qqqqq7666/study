@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: DB_Lock
+  jpa:
+    properties:
+      hibernate:
+        format_sql: ture
+        use_sql_comments: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5433/test
+    username: postgres
+    password: password
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        orm:
+          jdbc:
+            bind: trace
