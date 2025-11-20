@@ -1,5 +1,8 @@
 package com.example.db_lock;
 
+import com.example.db_lock.item.Item;
+import com.example.db_lock.item.ItemRepository;
+import com.example.db_lock.item.ItemService;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

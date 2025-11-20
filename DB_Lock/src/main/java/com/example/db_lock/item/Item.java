@@ -1,4 +1,4 @@
-package com.example.db_lock;
+package com.example.db_lock.item;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
